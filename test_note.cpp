@@ -8,21 +8,21 @@
 #include<fstream>
 using namespace std;
 
-string lex_path = "./lex2.txt";
+string lex_path = "./lex.txt";
 string lge_path = "./lge.txt";
 string end_path = "./end_ch.txt";
 
-string table[1000][100]; // 分析表
+string table[2000][200]; // 分析表
 
 int n; // 文法数量
-string lge[100]; // 文法
+string lge[200]; // 文法
 
 int ch_num; // 单词数量
 int end_num; // 终结符数量
 
-string word[100]; // 单词表
-string end_word[100]; // 终结符表
-string _word[100]; //索引对应的单词
+string word[200]; // 单词表
+string end_word[200]; // 终结符表
+string _word[200]; //索引对应的单词
 map<string, int> ch; // 单词哈希表
 map<string, int> end_ch; // 终结符哈希表
 map<string, vector<string> > first_hash; // first集哈希表
@@ -403,13 +403,13 @@ void generate_an_i(vector<string> cur, vector<vector<string> >& I, vector<vector
         }
     }
     // 找到.后有哪些字符 用索引存
-    int index_arr[100];
-    int index_num[100];
+    int index_arr[200];
+    int index_num[200];
     memset(index_arr, 0, sizeof(index_arr));
     memset(index_num, 0, sizeof(index_num));
 
-    //    string _cur[100][200];
-    vector<string> _cur[100];
+    //    string _cur[200][200];
+    vector<string> _cur[200];
     int all_reduce = 1;
     for (int i = 0; i < (int)I[Inum].size(); i++) { // 遍历这一状态里的所有语句
         int point_loc = _locate(I[Inum][i], 0);
@@ -486,7 +486,7 @@ void generate_an_i(vector<string> cur, vector<vector<string> >& I, vector<vector
         return;
     }
     // 对.后面的字符添加移进操作
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < n; i++) {
         if (index_arr[i] == 1) {
             vector<string>next_cur;
             for (int j = 0; j < index_num[i]; j++) {
@@ -634,8 +634,8 @@ void proc(string s) {
 
 int main() {
     /* ***************************************/
-    for(int i = 0;i < 1000; i++)
-        for(int j = 0; j < 100; j++)
+    for(int i = 0;i < 2000; i++)
+        for(int j = 0; j < 200; j++)
             table[i][j] = "";
     
     input_lge(); //读入文法，处理单词和终结符号
