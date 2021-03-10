@@ -634,10 +634,10 @@ void proc(string s) {
 
 int main() {
     /* ***************************************/
-    for(int i=0;i<1000;i++){
-        for(int j=0;j<100;j++)
-        table[i][i] = "";
-    }
+    for(int i = 0;i < 1000; i++)
+        for(int j = 0; j < 100; j++)
+            table[i][j] = "";
+    
     input_lge(); //读入文法，处理单词和终结符号
 
     generateTable(); //lr(1)文法，生成符号表
