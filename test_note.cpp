@@ -5,24 +5,26 @@
 #include<string>
 #include<string.h>
 #include<algorithm>
+#include<time.h>
 #include<fstream>
 using namespace std;
 
-string lex_path = "./lex.txt";
-string lge_path = "./lge.txt";
-string end_path = "./end_ch.txt";
+string lex_path = "/Users/mac/Desktop/lex.txt";
+string lge_path = "/Users/mac/Desktop/lge.txt";
+string end_path = "/Users/mac/Desktop/end_ch.txt";
+string table_dir = "/Users/mac/Desktop/table.dat";
 
-string table[2000][200]; // 分析表
+string table[1000][100]; // 分析表
 
 int n; // 文法数量
-string lge[200]; // 文法
+string lge[100]; // 文法
 
 int ch_num; // 单词数量
 int end_num; // 终结符数量
 
-string word[200]; // 单词表
-string end_word[200]; // 终结符表
-string _word[200]; //索引对应的单词
+string word[100]; // 单词表
+string end_word[100]; // 终结符表
+string _word[100]; //索引对应的单词
 map<string, int> ch; // 单词哈希表
 map<string, int> end_ch; // 终结符哈希表
 map<string, vector<string> > first_hash; // first集哈希表
@@ -173,9 +175,6 @@ void init_endch() { //初始化终结符
     for (int i = 0; i < end_num; i++) { //与所有单词对应，找到编号，存储到end_ch中
         int _index = ch[end_word[i]];
         end_ch.insert(pair<string, int>(end_word[i], _index));
-    }
-    for(int i = 1; i < end_num; i++){
-        cout << end_word[i] << endl;
     }
 }
 
@@ -403,13 +402,13 @@ void generate_an_i(vector<string> cur, vector<vector<string> >& I, vector<vector
         }
     }
     // 找到.后有哪些字符 用索引存
-    int index_arr[200];
-    int index_num[200];
+    int index_arr[100];
+    int index_num[100];
     memset(index_arr, 0, sizeof(index_arr));
     memset(index_num, 0, sizeof(index_num));
 
-    //    string _cur[200][200];
-    vector<string> _cur[200];
+    //    string _cur[100][200];
+    vector<string> _cur[100];
     int all_reduce = 1;
     for (int i = 0; i < (int)I[Inum].size(); i++) { // 遍历这一状态里的所有语句
         int point_loc = _locate(I[Inum][i], 0);
@@ -486,7 +485,7 @@ void generate_an_i(vector<string> cur, vector<vector<string> >& I, vector<vector
         return;
     }
     // 对.后面的字符添加移进操作
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < 100; i++) {
         if (index_arr[i] == 1) {
             vector<string>next_cur;
             for (int j = 0; j < index_num[i]; j++) {
@@ -535,7 +534,11 @@ void generateTable() {
             cout << I[i][j] << endl;
         }
     }
-
+    ofstream fout(table_dir, ios::binary);
+    unsigned table_size = sizeof(table);
+    fout.write((char*)&table_size, sizeof(unsigned));
+    fout.write((char*)&table, sizeof(table));
+    fout.close();
 }
 
 int how_many_word(string s) { // 查看一个字符串有多少单词或符号 如字符串"program id ;"返回值为3
@@ -555,6 +558,12 @@ int how_many_word(string s) { // 查看一个字符串有多少单词或符号 �
 
 // 语法分析
 void proc(string s) {
+    
+    ifstream fin(table_dir, ios::binary);
+    unsigned table_size;
+    fin.read((char*)&table_size, sizeof(unsigned));
+    fin.read((char*)&table, table_size);
+    
     vector<int> status; // 状态栈
     vector<string> opr; // 符号栈
     s.append(1, '$');
@@ -633,14 +642,17 @@ void proc(string s) {
 }
 
 int main() {
-    /* ***************************************/
-    for(int i = 0;i < 2000; i++)
-        for(int j = 0; j < 200; j++)
-            table[i][j] = "";
     
+    clock_t _stt = clock();
+    
+    /* ***************************************/
+    for(int i=0;i<1000;i++){
+        for(int j=0;j<100;j++)
+        table[i][j] = "";
+    }
     input_lge(); //读入文法，处理单词和终结符号
 
-    generateTable(); //lr(1)文法，生成符号表
+//    generateTable(); //lr(1)文法，生成符号表
 
     //    string input_str = "program id(id,id,id);\nbegin \nend.";
     //    string input_str = "program id id, id );var id, id: integer ;begin end.";
@@ -660,6 +672,10 @@ int main() {
     proc(input_str);
     /*integer id=record id:integer end;*/
     /* ***************************************/
-
+    
+    clock_t _end = clock();
+    cout << _end - _stt << "us" << endl;
 
 }
+// 4468689
+// 23830
