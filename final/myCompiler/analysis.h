@@ -4,7 +4,7 @@
 #include"generateTable.h"
 #include"def.h"
 
-void give_tree_type(NODE* tree, typeNode* type);
+int give_tree_type(NODE* tree, typeNode* type);
 void give_id_buffer(NODE* tree, int buffer, int& num, int period_num, _peroid* period);
 bool comparetree(typeNode* t1, typeNode* t2);
 void analyze(int lge_no, NODE* father, vector<NODE*> children);
