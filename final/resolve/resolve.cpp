@@ -475,9 +475,9 @@ void do_resolve(){
         I = pcode[P];
 //        cout<<"processing "<<P<<endl;
         cnt++;
-        if(P == 389){
-            cout<<"??"<<data_space[7][0]<<" "<<data_space[44][0]<<endl;
-        }
+//        if(P == 389){
+//            cout<<"??"<<data_space[7][0]<<" "<<data_space[44][0]<<endl;
+//        }
 //        if(P == 254){
 //            cout<<"???";
 //            cout<<data_space[15081][0]<<endl;
