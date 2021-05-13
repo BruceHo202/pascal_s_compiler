@@ -1,0 +1,13 @@
+
+program dyaares(input,output);
+    var m: integer;
+        r:array[1..100] of record a:integer; b:integer end;
+    procedure addaval;
+        begin m := m + 5 end;
+
+    function test1(h:integer):integer;
+        begin test1 := h end;
+    begin 
+        m := 1;
+        test1(m);
+    end.
