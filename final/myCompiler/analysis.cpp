@@ -8,7 +8,8 @@ int dataspace_len;
 Z_marktable mMark[5500], uMark[5500];
 marktable mmMark[5500], uuMark[5500];
 
-void give_tree_type(NODE* tree, typeNode* type){
+int give_tree_type(NODE* tree, typeNode* type){
+    int ans = 0;
     if((int)tree->child.size() == 0){
         tree->type = type;
         
@@ -17,15 +18,16 @@ void give_tree_type(NODE* tree, typeNode* type){
             uuMark[_pos].type = type;
             int ppos = uuMark[_pos].pos;
             mmMark[ppos].type = type;
-            
+            ans = 1;
         }
-            
-        return ;
+        
+        return ans;
     }
     for(int i=0;i<(int)tree->child.size();i++){
-        give_tree_type(tree->child[i], type);
+        ans += give_tree_type(tree->child[i], type);
     }
     tree->type = type;
+    return ans;
 }
 
 void give_id_buffer(NODE* tree, int buffer, int& num, int period_num, _peroid* period){
@@ -635,7 +637,9 @@ void analyze(int lge_no, NODE* father, vector<NODE*> children){
         case 44: // parameter_lists->parameter_lists;parameter_list
         {
             typeNode* tt = children[0]->type;
-            tt->children.push_back(children[2]->type);
+            for(int i = 0; i <(int)children[2]->type->children.size(); i++){
+                tt->children.push_back(children[2]->type->children[i]);
+            }
             father->type = tt;
             
             father->para_cnt = children[0]->para_cnt + children[2]->para_cnt;
@@ -643,10 +647,10 @@ void analyze(int lge_no, NODE* father, vector<NODE*> children){
         }
         case 45: // parameter_lists->parameter_list
         {
-            typeNode* tt = new typeNode;
-            tt->type = "NULL";
-            tt->children.push_back(children[0]->type);
-            father->type = tt;
+//            typeNode* tt = new typeNode;
+//            tt->type = "NULL";
+//            tt->children.push_back(children[0]->type);
+            father->type = children[0]->type;
             
             father->para_cnt = children[0]->para_cnt;
             break;
@@ -675,8 +679,15 @@ void analyze(int lge_no, NODE* father, vector<NODE*> children){
         }
         case 49: // value_parameter->identifier_list:standard_type
         {
-            father->type = children[2]->type;
-            give_tree_type(children[0], children[2]->type);
+//            father->type = children[2]->type;
+            typeNode* tt = new typeNode;
+            tt->type = "NULL";
+            
+            int times = give_tree_type(children[0], children[2]->type);
+            for(int i = 0; i < times; i++){
+                tt->children.push_back(children[2]->type);
+            }
+            father->type = tt;
             int nn = 0;
             give_id_buffer(children[0], children[2]->buffer, nn, children[2]->period_num, children[2]->period);
             
@@ -1003,11 +1014,11 @@ void analyze(int lge_no, NODE* father, vector<NODE*> children){
 //            puts(ch);
             if(strcmp(ch,"+") ==0  || strcmp(ch,"-") == 0){
                 if(children[0]->type->type != "integer" && children[0]->type->type != "real") {
-                    puts("error!!!!!!");
+                    puts("error1!!!!!!");
                     exit(0);
                 }
                 if(children[2]->type->type != "integer" && children[2]->type->type != "real") {
-                    puts("error!!!!!!");
+                    puts("error2!!!!!!");
                     exit(0);
                 }
                 if(children[0]->type->type == "integer" && children[2]->type->type == "integer"){
@@ -1033,7 +1044,7 @@ void analyze(int lge_no, NODE* father, vector<NODE*> children){
                     father->type = tt;
                 }
                 else{
-                    puts("error!!!!!!");
+                    puts("error3!!!!!!");
                     exit(0);
                 }
             }
@@ -1047,11 +1058,11 @@ void analyze(int lge_no, NODE* father, vector<NODE*> children){
 //            puts(ch);
             if(strcmp(ch,"*") ==0  || strcmp(ch,"/") == 0){
                 if(children[0]->type->type != "integer" && children[0]->type->type != "real") {
-                    puts("error!!!!!!");
+                    puts("error4!!!!!!");
                     exit(0);
                 }
                 if(children[2]->type->type != "integer" && children[2]->type->type != "real") {
-                    puts("error!!!!!!");
+                    puts("error5!!!!!!");
                     exit(0);
                 }
                 if(children[0]->type->type == "integer" && children[2]->type->type == "integer"){
@@ -1072,7 +1083,7 @@ void analyze(int lge_no, NODE* father, vector<NODE*> children){
                     father->type = tt;
                 }
                 else{
-                    puts("error!!!!!!");
+                    puts("error6!!!!!!");
                     exit(0);
                 }
             }
@@ -1088,7 +1099,7 @@ void analyze(int lge_no, NODE* father, vector<NODE*> children){
                     father->type = tt;
                 }
                 else{
-                    puts("error!!!!!!");
+                    puts("error7!!!!!!");
                     exit(0);
                 }
             }
@@ -1118,7 +1129,7 @@ void analyze(int lge_no, NODE* father, vector<NODE*> children){
             _type = mmMark[ppos].type;
             children[0]->type = _type;
             father->type = _type->children[1];
-            if(!(comparetree(children[0]->type->children[0], children[2]->type))) {printf("error!!!!!!"); exit(0);}
+            if(!(comparetree(children[0]->type->children[0], children[2]->type))) {printf("error8!!!!!!"); exit(0);}
             break;
         }
         case 93: //factor->(expression)
