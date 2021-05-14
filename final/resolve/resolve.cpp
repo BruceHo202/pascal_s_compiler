@@ -9,6 +9,8 @@ vector<int> calc_stack;
 vector<int> runtime_stack;
 
 int cur_level;
+vector<double> que;
+vector<double> que1;
 
 void handle_OPR(vector<string> this_code){
     int opr_num = atoi(this_code[2].c_str());
@@ -290,23 +292,27 @@ void handle_OPR(vector<string> this_code){
         case 14:
         {
             int num_ptr = calc_stack[T-1];
-            double num = data_space[num_ptr][0];
-            int type = (int)data_space[num_ptr][1];
-            if(type == _INTEGER)
-                printf("%d", (int)num);
-            else if(type == _REAL)
-                printf("%lf", num);
-            else if(type == _CHAR)
-                printf("%c", (int)num);
-            else if(type == _BOOLEAN){
-                if((int)num == 1){
-                    printf("TRUE");
-                }
-                else if((int)num == 0){
-                    printf("FALSE");
-                }
-            }
+            que1.push_back(num_ptr);
+//            double num = data_space[num_ptr][0];
+//            int type = (int)data_space[num_ptr][1];
+//            if(type == _INTEGER)
+//                printf("%d", (int)num);
+//            else if(type == _REAL)
+//                printf("%lf", num);
+//            else if(type == _CHAR)
+//                printf("%c", (int)num);
+//            else if(type == _BOOLEAN){
+//                if((int)num == 1){
+//                    printf("TRUE");
+//                }
+//                else if((int)num == 0){
+//                    printf("FALSE");
+//                }
+//            }
+            
             P++;
+            calc_stack.pop_back();
+            T--;
             break;
         }
         case 15:
@@ -325,27 +331,31 @@ void handle_OPR(vector<string> this_code){
                  (s[0] >= 'A' && s[0] <= 'Z') ||
                  (s[0] == ' ')
                 ) ){
-                data_space[dataspace_len][0] = s[0];
-                data_space[dataspace_len][1] = _CHAR;
-                calc_stack.push_back(dataspace_len++);
-                T++;
+//                data_space[dataspace_len][0] = s[0];
+//                data_space[dataspace_len][1] = _CHAR;
+//                calc_stack.push_back(dataspace_len++);
+//                T++;
+                que.push_back(s[0]);
                 P++;
                 return ;
             }
             for(int i = 0; i < (int)s.size(); i++){
                 if(s[i] == '.'){
-                    data_space[dataspace_len][0] = atof(s.c_str());
-                    data_space[dataspace_len][1] = _REAL;
-                    calc_stack.push_back(dataspace_len++);
-                    T++;
+//                    data_space[dataspace_len][0] = atof(s.c_str());
+//                    data_space[dataspace_len][1] = _REAL;
+//                    calc_stack.push_back(dataspace_len++);
+//                    T++;
+                    
+                    que.push_back(atof(s.c_str()));
                     P++;
                     return ;
                 }
             }
-            data_space[dataspace_len][0] = atoi(s.c_str());
-            data_space[dataspace_len][1] = _INTEGER;
-            calc_stack.push_back(dataspace_len++);
-            T++;
+//            data_space[dataspace_len][0] = atoi(s.c_str());
+//            data_space[dataspace_len][1] = _INTEGER;
+//            calc_stack.push_back(dataspace_len++);
+//            T++;
+            que.push_back(atoi(s.c_str()));
             P++;
             
             break;
@@ -653,6 +663,45 @@ void do_resolve(){
                 data_space[dataspace_len][1] = type;
                 calc_stack.push_back(dataspace_len++);
                 T++;
+            }
+            P++;
+        }
+        else if(I[0] == "QUE"){
+            int flag = atoi(I[1].c_str());
+            int ptr = atoi(I[2].c_str());
+            int times = (int)data_space[ptr][0];
+            if(flag == 0){
+                
+                for(int i = 0; i < times; i++){
+                    int top_addr = calc_stack[T - 1];
+                    calc_stack.pop_back();
+                    T--;
+                    double tail = que.back();
+                    que.pop_back();
+                    data_space[top_addr][0] = tail;
+                }
+            }
+            else if(flag == 1){
+                for(int i = 0; i < times; i++){
+                    int num_ptr = (int)que1.back();
+                    que1.pop_back();
+                    double num = data_space[num_ptr][0];
+                    int type = (int)data_space[num_ptr][1];
+                    if(type == _INTEGER)
+                        printf("%d", (int)num);
+                    else if(type == _REAL)
+                        printf("%lf", num);
+                    else if(type == _CHAR)
+                        printf("%c", (int)num);
+                    else if(type == _BOOLEAN){
+                        if((int)num == 1){
+                            printf("TRUE");
+                        }
+                        else if((int)num == 0){
+                            printf("FALSE");
+                        }
+                    }
+                }
             }
             P++;
         }
