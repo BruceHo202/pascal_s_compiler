@@ -155,6 +155,7 @@ NODE* proc(string s) {
             }
             nodes.push_back(cur_node);
 //            cout<<lge_no<<endl;
+            
             analyze(lge_no, cur_node, cur_node->child);
             int A = atoi(table[ss][ch[a_word]].c_str()); // goto到状态A
             status.push_back(A); //A压入栈
@@ -266,9 +267,21 @@ void save_mmMark(){
 }
 
 void init_info(){
-    for(int i = 0; i < 5500; i++){
-        mmMark[i].addr = 0;
-    }
+//    for(int i = 0; i < 5500; i++){
+////        mmMark[i].addr = 0;
+//        memset(&mmMark[i], 0, sizeof(mmMark[i]));
+//        memset(&mMark[i], 0, sizeof(mMark[i]));
+//        memset(&uuMark[i], 0, sizeof(uuMark[i]));
+//        memset(&uMark[i], 0, sizeof(uMark[i]));
+//        memset(&uMark[i], 0, sizeof(uMark[i]));
+//        memset(&outmark[i], 0, sizeof(outmark[i]));
+//    }
+    memset(mmMark, 0, sizeof(mmMark));
+    memset(mMark, 0, sizeof(mMark));
+    memset(uuMark, 0, sizeof(uuMark));
+    memset(uMark, 0, sizeof(uMark));
+    memset(outmark, 0, sizeof(outmark));
+    
 }
 void save_temp_ptr(){
     for(int i = 0; i < 5500; i++){
@@ -281,7 +294,7 @@ int main() {
     clock_t _stt = clock();
     
     /*  */
-    
+    init_info();
     ifstream fin(mergeMarktable_dir, ios::binary);
     unsigned table_size;
     fin.read((char*)&table_size, sizeof(unsigned));
@@ -300,7 +313,7 @@ int main() {
         memcpy(mmMark[i].hav, mMark[i].hav, sizeof(mMark[i]));
         mmMark[i].belongPos = mMark[i].belongPos;
     }
-    init_info();
+//    init_info();
     for(int i=1;i<=mMark[0].Belong;i++){
 //        printf("%d %s %s %d %d %d %d\n", mmMark[i].kind, mmMark[i].mark, mmMark[i].value, mmMark[i].pos, mmMark[i].depth, mmMark[i].deviation, mmMark[i].Belong);
     }
@@ -366,8 +379,7 @@ int main() {
     /*integer id=record id:integer end;*/
     /* ***************************************/
     
-    clock_t _end = clock();
-    cout << _end - _stt << "us" << endl;
+    
 //    cout << lge_cnt << endl;
     
     GENCODE generatepcode;
@@ -414,7 +426,8 @@ int main() {
 //        cout<<endl;
 //    }
     
-    
+    clock_t _end = clock();
+    cout << _end - _stt << "us" << endl;
     
 //    generatePCode(_root);
 }
