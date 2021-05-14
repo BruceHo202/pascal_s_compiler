@@ -231,7 +231,11 @@ void GENCODE::handle_call_procedure_stat(NODE *tree){
     int _pos = tree->child[0]->pos;
     int ppos = uuMark[_pos].pos;
     
-    int expr_num = tree->child[2]->expr_num;
+    int expr_num;
+    if((int)tree->child.size() == 1)
+        expr_num = 0;
+    else
+        expr_num = tree->child[2]->expr_num;
     
     int buf[expr_num + 2][2];
     
