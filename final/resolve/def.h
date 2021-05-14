@@ -65,4 +65,7 @@ extern vector<int> runtime_stack;
 
 extern int cur_level;
 
+extern vector<double> que;
+extern vector<double> que1;
+
 #endif
