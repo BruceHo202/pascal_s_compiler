@@ -185,9 +185,23 @@ void GENCODE::handle_call_procedure_stat(NODE *tree){
             return ;
         }
         handle_expr_list(tree->child[2]);
-        tt_code[0] = OPR;
-        tt_code[1] = "0";
-        tt_code[2] = "14";
+        if((int)tree->child.size() == 1){
+            return ;
+        }
+        int expr_num = tree->child[2]->expr_num;
+        data_space[dataspace_len][0] = expr_num;
+        data_space[dataspace_len][1] = _INTEGER;
+        
+        for(int i = 0; i < expr_num; i++){
+            tt_code[0] = OPR;
+            tt_code[1] = "0";
+            tt_code[2] = "14";
+            pcode.push_back(tt_code);
+        }
+        tt_code[0] = "QUE";
+        tt_code[1] = "1";
+        tt_code[2] = to_string(dataspace_len++);
+        tt_code[3] = "";
         pcode.push_back(tt_code);
         return ;
     }
@@ -200,9 +214,22 @@ void GENCODE::handle_call_procedure_stat(NODE *tree){
             return ;
         }
         handle_expr_list(tree->child[2]);
-        tt_code[0] = OPR;
-        tt_code[1] = "0";
-        tt_code[2] = "14";
+        int expr_num = tree->child[2]->expr_num;
+        
+        data_space[dataspace_len][0] = expr_num;
+        data_space[dataspace_len][1] = _INTEGER;
+        for(int i = 0; i < expr_num; i++){
+            tt_code[0] = OPR;
+            tt_code[1] = "0";
+            tt_code[2] = "14";
+            pcode.push_back(tt_code);
+            
+        }
+        
+        tt_code[0] = "QUE";
+        tt_code[1] = "1";
+        tt_code[2] = to_string(dataspace_len++);
+        tt_code[3] = "";
         pcode.push_back(tt_code);
         tt_code[0] = OPR;
         tt_code[1] = "0";
@@ -215,16 +242,29 @@ void GENCODE::handle_call_procedure_stat(NODE *tree){
             strcmp(uuMark[tree->child[0]->pos].value, "readln") == 0){
   //      cout<<"nihaonihaonihaonihaonihoanihao"<<endl;
         handle_expr_list(tree->child[2]);
-        tt_code[0] = OPR;
-        tt_code[1] = "0";
-        tt_code[2] = "16";
-        pcode.push_back(tt_code);
+        int expr_num = 0;
+        if((int)tree->child.size() == 1) return ;
+        expr_num = tree->child[2]->expr_num;
+        data_space[dataspace_len][0] = expr_num;
+        data_space[dataspace_len][1] = _INTEGER;
         
-        tt_code[0] = STOA;
-        tt_code[1] = "0";
-        tt_code[2] = "1";
+        for(int i = 0; i < expr_num; i++){
+            tt_code[0] = OPR;
+            tt_code[1] = "0";
+            tt_code[2] = "16";
+            pcode.push_back(tt_code);
+            
+//            tt_code[0] = STOA;
+//            tt_code[1] = "0";
+//            tt_code[2] = "1";
+//            pcode.push_back(tt_code);
+            
+        }
+        tt_code[0] = "QUE";
+        tt_code[1]= "0";
+        tt_code[2] = to_string(dataspace_len++);
+        tt_code[3] = "";
         pcode.push_back(tt_code);
-        
         return ;
     }
     
@@ -565,9 +605,19 @@ void GENCODE::handle_factor(NODE* tree){
                 return ;
             }
             handle_expr_list(tree->child[2]);
-            tt_code[0] = OPR;
-            tt_code[1] = "0";
-            tt_code[2] = "14";
+            int expr_num = tree->child[2]->expr_num;
+            data_space[dataspace_len][0] = expr_num;
+            data_space[dataspace_len][1] = _INTEGER;
+            for(int i = 0; i < expr_num; i++){
+                tt_code[0] = OPR;
+                tt_code[1] = "0";
+                tt_code[2] = "14";
+                pcode.push_back(tt_code);
+            }
+            tt_code[0] = "QUE";
+            tt_code[1] = "1";
+            tt_code[2] = to_string(dataspace_len++);
+            tt_code[3] = "";
             pcode.push_back(tt_code);
             return ;
         }
@@ -580,15 +630,26 @@ void GENCODE::handle_factor(NODE* tree){
                 return ;
             }
             handle_expr_list(tree->child[2]);
-            tt_code[0] = OPR;
-            tt_code[1] = "0";
-            tt_code[2] = "14";
+            int expr_num = tree->child[2]->expr_num;
+            data_space[dataspace_len][0] = expr_num;
+            data_space[dataspace_len][1] = _INTEGER;
+            
+            for(int i = 0; i < expr_num; i++){
+                tt_code[0] = OPR;
+                tt_code[1] = "0";
+                tt_code[2] = "14";
+                pcode.push_back(tt_code);
+                
+            }
+            tt_code[0] = "QUE";
+            tt_code[1] = "1";
+            tt_code[2] = to_string(dataspace_len++);
+            tt_code[3] = "";
             pcode.push_back(tt_code);
             tt_code[0] = OPR;
             tt_code[1] = "0";
             tt_code[2] = "15";
             pcode.push_back(tt_code);
-            
             return ;
         }
         else if(strcmp(uuMark[tree->child[0]->pos].value, "read") == 0 ||
@@ -596,14 +657,28 @@ void GENCODE::handle_factor(NODE* tree){
             
             handle_expr_list(tree->child[2]);
 //            cout<<"hahhahahaahahahahhahahahahahhahahahahahahahaahah"<<endl;
-            tt_code[0] = OPR;
-            tt_code[1] = "0";
-            tt_code[2] = "16";
-            pcode.push_back(tt_code);
             
-            tt_code[0] = STOA;
+            if((int)tree->child.size() == 1){
+                return ;
+            }
+            int expr_num = tree->child[2]->expr_num;
+            data_space[dataspace_len][0] = expr_num;
+            data_space[dataspace_len][1] = _INTEGER;
+            
+            for(int i = 0; i < expr_num; i++){
+                tt_code[0] = OPR;
+                tt_code[1] = "0";
+                tt_code[2] = "16";
+                pcode.push_back(tt_code);
+//                tt_code[0] = STOA;
+//                tt_code[1] = "0";
+//                tt_code[2] = "1";
+//                pcode.push_back(tt_code);
+            }
+            tt_code[0] = "QUE";
             tt_code[1] = "0";
-            tt_code[2] = "1";
+            tt_code[2] = to_string(dataspace_len++);
+            tt_code[3] = "";
             pcode.push_back(tt_code);
             
             return ;
@@ -1296,7 +1371,7 @@ void GENCODE::handle_p_body(NODE* tree, int& backpatch_num, int size){
     NODE* this_node = tree->father->child[0]->child[1];
     int ppos = uuMark[this_node->pos].pos;
     mmMark[ppos].addr = (int)pcode.size() - 1;
-    cout<<">>>>>>>>>>>"<<mmMark[ppos].addr<<" "<<mmMark[ppos].value<<endl;
+//    cout<<">>>>>>>>>>>"<<mmMark[ppos].addr<<" "<<mmMark[ppos].value<<endl;
 
     handle_subprogram_declarations(tree->child[3], backpatch_num);
     this_code[0] = INT;
