@@ -922,9 +922,16 @@ void GENCODE::handle_stat(NODE* tree, int& backpatch_num){
         int cur_len = (int)pcode.size() - 1;
         
         handle_stat(tree->child[3], if_backpatch_num);
+        int cur_line2 = (int)pcode.size();
+        tt_code[0] = JMP;
+        tt_code[1] = "0";
+        tt_code[2] = "";
+        tt_code[2] = "";
+        pcode.push_back(tt_code);
+        
         pcode[cur_len][2] = to_string((int)pcode.size());
         handle_else_part(tree->child[4], if_backpatch_num);
-
+        pcode[cur_line2][2] = to_string((int)pcode.size());
     }
     else if(tree->child[0]->_name == "case"){
         handle_expression(tree->child[1]);
