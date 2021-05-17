@@ -33,7 +33,8 @@ const string _array = "100000";
 const string _freturns = "110000";
 
 //string lex_path = "/Users/mac/Desktop/示例程序.txt";
-string lex_path = "/Users/mac/Desktop/lex2.txt";
+//string lex_path = "/Users/mac/Desktop/lex2.txt";
+string lex_path = "/Users/mac/Desktop/resource/Fstdout.txt";
 string lge_path = "/Users/mac/Desktop/lge00.txt";
 string end_path = "/Users/mac/Desktop/end_ch.txt";
 string table_dir = "/Users/mac/Desktop/table.dat";
@@ -211,19 +212,24 @@ void save_pcode(){
         }
         fout<<endl;
     }
+    
     fout.close();
     
-//    ofstream fout0(pcodedat_dir, ios::binary);
+    ofstream fout0(pcodedat_dir, ios::binary);
+    int pcode_num = (int)pcode.size();
 //    unsigned pcode_size = sizeof(pcode);
-//    for(int i = 0; i < (int)pcode.size(); i++){
-//        unsigned this_size = sizeof(pcode[i]);
-//        for(int j = 0; j < (int)pcode[i][j].size(); j++){
-//            fout.write((char*)&pcode[i][j], sizeof(pcode[i][j]));
-//        }
-//    }
-//    fout0.write((char*)&pcode_size, sizeof(unsigned));
-//    fout0.write((char*)&pcode, sizeof(pcode));
-//    fout0.close();
+    
+    fout0.write((char*)&pcode_num, sizeof(int));
+    
+    for(int i = 0; i < pcode_num; i++){
+        for(int j = 0; j < 4; j++){
+            unsigned this_size = sizeof(pcode[i][j]);
+            fout0.write((char*)&this_size, sizeof(unsigned));
+            fout0.write((char*)&pcode[i][j], this_size);
+        }
+    }
+//    fout0.write((char*)&pcode, pcode_size);
+    fout0.close();
 }
 
 void save_data_space_dat(){
@@ -361,6 +367,7 @@ int main() {
         input_str.append(str);
         input_str.append(1, ' ');
     }
+    infile.close();
 //    cout << "待分析串\t" << input_str << endl;
 
 
