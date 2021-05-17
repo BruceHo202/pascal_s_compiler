@@ -536,7 +536,15 @@ void do_resolve(){
                 int ptr2 = mmMark[num].data_space_temp_ptr;
                 data_space[ptr][0] = d;
                 data_space[ptr2][0] = d;
-                mmMark[num].data_space_temp_ptr = calc_stack[T - 1];
+//                mmMark[num].data_space_temp_ptr = calc_stack[T - 1];
+                int flag = 0;
+                for(int i = 1; i < mmMark[0].Belong; i++){
+                    if(mmMark[i].data_space_ptr == calc_stack[T - 1]){
+                        flag = i;
+                        break;
+                    }
+                }
+                mmMark[num].data_space_temp_ptr = mmMark[flag].data_space_temp_ptr;
                 calc_stack.pop_back();
                 T--;
             }
@@ -707,5 +715,10 @@ void do_resolve(){
         }
     }
     printf("程序运行结束---------\n");
-    exit(0);
+    
+//    for(int i = 0; i < pcode.size(); i++){
+//        pcode[i].swap(vector<string>(pcode[i]));
+//    }
+    vector<vector<string> >(pcode).swap(pcode);
+    
 }
