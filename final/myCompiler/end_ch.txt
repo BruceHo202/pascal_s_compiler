@@ -1,0 +1,1 @@
+$ . , : ; ( ) [ ] + - = num id letter program function procedure const record array end of integer real Boolean char var begin assignop if then case of while do repeat until for else to downto relop addop mulop not none ' type

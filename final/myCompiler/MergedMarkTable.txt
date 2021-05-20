@@ -1,0 +1,5 @@
+============mergedMarkTable================
+i:1 value:dyaares  pos:2  depth = 1  size = 3 dev = 0   bp = 0
+i:2 value:input  pos:4  depth = 2  size = 0 dev = 1   bp = 1
+i:3 value:output  pos:6  depth = 2  size = 0 dev = 2   bp = 1
+i:4 value:a  pos:10  depth = 2  size = 0 dev = 3   bp = 1

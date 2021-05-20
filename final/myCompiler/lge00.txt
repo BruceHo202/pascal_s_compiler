@@ -1,0 +1,97 @@
+PROGRAM->program0
+program0->program_head program_body.
+program_head->program id (identifier_list);
+program_body->const_declarations type_declarations var_declarations subprogram_declarations compound_statement
+identifier_list->identifier_list,id
+identifier_list->id
+const_declarations->const const_declaration;
+const_declarations->
+const_declaration->const_declaration;id=const_variable
+const_declaration->id=const_variable
+const_variable->+id
+const_variable->-id
+const_variable->id
+const_variable->+num
+const_variable->-num
+const_variable->num
+const_variable->'letter'
+type_declarations->type type_declaration;
+type_declarations->
+type_declaration->type_declaration;id=type0
+type_declaration->id=type0
+type0->standard_type
+type0->record record_body end
+type0->array[periods] of type0
+standard_type->integer
+standard_type->real
+standard_type->Boolean
+standard_type->char
+record_body->var_declaration
+record_body->
+periods->periods,period
+periods->period
+period->const_variable..const_variable
+var_declarations->var var_declaration;
+var_declarations->
+var_declaration->var_declaration;identifier_list:type0
+var_declaration->identifier_list:type0
+subprogram_declarations->subprogram_declarations subprogram_declaration;
+subprogram_declarations->
+subprogram_declaration->subprogram_head program_body
+subprogram_head->function id formal_parameter:standard_type;
+subprogram_head->procedure id formal_parameter;
+formal_parameter->(parameter_lists)
+formal_parameter->
+parameter_lists->parameter_lists;parameter_list
+parameter_lists->parameter_list
+parameter_list->var_parameter
+parameter_list->value_parameter
+var_parameter->var value_parameter
+value_parameter->identifier_list:standard_type
+compound_statement->begin statement_list end
+statement_list->statement_list;statement
+statement_list->statement
+statement->variable assignop expression
+statement->call_procedure_statement
+statement->compound_statement
+statement->if expression then statement else_part
+statement->case expression of case_body end
+statement->while expression do statement
+statement->repeat statement_list until expression
+statement->for id assignop expression updown expression do statement
+statement->
+variable->id id_varparts
+id_varparts->id_varparts id_varpart
+id_varparts->
+id_varpart->[expression_list]
+id_varpart->.id
+else_part->else statement
+else_part->
+case_body->branch_list
+case_body->
+branch_list->branch_list;branch
+branch_list->branch
+branch->const_list:statement
+const_list->const_list,const_variable
+const_list->const_variable
+updown->to
+updown->downto
+call_procedure_statement->id
+call_procedure_statement->id(expression_list)
+expression_list->expression_list,expression
+expression_list->expression
+expression->simple_expression relop simple_expression
+expression->simple_expression
+simple_expression->term
+simple_expression->+term
+simple_expression->-term
+simple_expression->simple_expression addop term
+term->term mulop factor
+term->factor
+factor->unsign_const_variable
+factor->variable
+factor->id(expression_list)
+factor->(expression)
+factor->not factor
+unsign_const_variable->num
+unsign_const_variable->'letter'
