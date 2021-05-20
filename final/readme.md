@@ -11,5 +11,4 @@ the code. Lib functions includes only write, writeln, read, readln.
 
 * Files with .txt or .dat suffix are input files of this program.
 
-* Directory sample is samples of pascal-s source code, which can successfully run
-* through this compiler.
+* Directory sample is samples of pascal-s source code, which can successfully run through this compiler.
