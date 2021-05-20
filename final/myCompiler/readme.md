@@ -10,7 +10,7 @@ During reducing process, do semantic analysing. Give nodes type and judge whethe
 type is appropriate. Types of every node is a tree structure, aiming to express types of 
 record of array or function, etc. During this process, also fill attributes of marktable.
 After analysing source code, generate p-code. P-CODE in this program is adjusted by requirments
-of this program, in order to accomplish both call by value and call by value. Traverse the 
+of this program, in order to accomplish both call by reference and call by value. Traverse the 
 grammar analysing tree by depth first, when visiting program_body node, traverse this subtree
 roooted by program_body and genarates p-code from bottom up.
 ```
