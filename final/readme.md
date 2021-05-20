@@ -1,5 +1,5 @@
 ```
-Run lex, updateMarkTable, myCompiler, resolve in order.
+Run lex, updateMarkTable, myCompiler, resolve in sequence.
 lex is lexical analysing.
 updateMarkTable generates mark table.
 myCompiler do work of parsing, semantic analysing, and genarates p-code.
