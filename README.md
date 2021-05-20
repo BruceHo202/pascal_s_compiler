@@ -3,7 +3,7 @@ the code. Lib functions includes only write, writeln, read, readln.
 
 * Run lex, updateMarkTable, myCompiler, resolve in sequence.
 
-* Run method
+* Functions of each program
   * lex is lexical analysing.
   * updateMarkTable generates mark table.
   * myCompiler do work of parsing, semantic analysing, and genarates p-code.
