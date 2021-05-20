@@ -1,0 +1,23 @@
+program dyaares(input,output);
+    
+    var xx, yy, modnum: integer;
+
+    function quickpow(p,q:integer):integer;
+        var res:integer;
+    begin
+        res:=1;
+        while q<>0 do
+            begin
+                if q mod 2 = 1 then res:=res*p;
+                p:=p*p;
+                p:=p mod modnum;
+                res:=res mod modnum;
+                q:=q div 2
+            end;
+        quickpow:=res
+    end;
+
+begin
+    read(xx, yy, modnum);
+    writeln(quickpow(xx, yy))
+end.

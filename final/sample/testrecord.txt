@@ -1,0 +1,15 @@
+program dyaares(input,output);
+    const aa = 1;
+          bb = 15;
+    type symbol = integer;
+          
+    
+    var r: record a:integer; b: array[aa..bb,aa..5] of record a:symbol end end;
+
+
+begin
+    r.a := 3;
+    r.b[1,2].a := 1234;
+    writeln(r.b[1,2].a);
+    writeln(r.a)
+end.

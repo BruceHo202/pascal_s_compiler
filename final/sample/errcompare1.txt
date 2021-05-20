@@ -1,0 +1,13 @@
+program dyaares(input,output);
+    var ch, ch2: char;
+        int, int2: integer;
+        bol, bol2: Boolean;
+        rea, rea2: real;
+
+begin
+    ch := 'a';
+    ch2 := 'b';
+    int := 2;
+    rea := 2.5;
+    writeln(ch > int)
+end.

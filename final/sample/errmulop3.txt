@@ -1,0 +1,11 @@
+program dyaares(input,output);
+    var ch, ch2: char;
+        int, int2: integer;
+        bol, bol2: Boolean;
+        rea, rea2: real;
+        
+begin
+    rea := 5.0;
+    ch := '2';
+    writeln(rea + ch)
+end.

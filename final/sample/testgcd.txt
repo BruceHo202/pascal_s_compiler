@@ -1,0 +1,21 @@
+program dyaares(input,output);
+    
+    var xx, yy: integer;
+
+    function gcd(x, y:integer):integer;
+        var r:integer;
+    begin
+        r := x mod y;
+        while r <> 0 do
+        begin
+            x := y;
+            y := r;
+            r := x mod y
+        end;
+        gcd := y
+    end;
+
+begin
+    read(xx, yy);
+    writeln(gcd(xx, yy))
+end.

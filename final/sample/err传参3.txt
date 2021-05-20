@@ -1,0 +1,9 @@
+program dyaares(input,output);
+    function test(a:integer; b: char): integer;
+    begin
+        a := 2;
+    end;
+        
+begin
+    test(2, 5)
+end.

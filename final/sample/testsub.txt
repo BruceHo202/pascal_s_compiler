@@ -1,0 +1,18 @@
+program dyaares(input,output);
+    
+    var n:integer;
+
+    procedure Sub(var n:integer);
+    begin
+        if n - 1 > 0 then 
+        begin
+            n := n - 1;
+            Sub(n)
+        end
+    end;
+
+begin
+    read(n);
+    Sub(n);
+    writeln(n)
+end.

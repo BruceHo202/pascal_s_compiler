@@ -1,0 +1,6 @@
+program dyaares(input,output);
+    
+    var i : integer;
+begin
+    writeln(3/0)
+end.

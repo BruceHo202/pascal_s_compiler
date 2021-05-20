@@ -1,0 +1,5 @@
+program dyaares(input,output);
+        
+begin
+    if 1 > 2 then do writeln(2)
+end.

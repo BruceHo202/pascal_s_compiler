@@ -1,0 +1,5 @@
+program dyaares(input,output);
+    
+begin
+    i := 10
+end.

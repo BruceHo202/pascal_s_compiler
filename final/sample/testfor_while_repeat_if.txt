@@ -1,0 +1,32 @@
+program dyaares(input,output);
+    var i,j: integer;
+
+begin
+    for i := 1 to 5 do
+        begin
+            for j := 5 downto 2 do
+            begin
+                write(i,j)
+            end;
+            writeln
+        end;
+    
+    writeln;
+    
+    i := 6;
+    while i > 0 do 
+    begin
+        writeln(i);
+        i := i - 1
+    end;
+    
+    writeln;
+    
+    i := 1;
+    j := 0;
+    repeat
+        writeln(i);
+        i := i + 1;
+        if i > 6 then j := 1
+    until j = 1
+end.

@@ -1,0 +1,14 @@
+program dyaares(input,output);
+    
+    var n:integer;
+
+    function Fbi(n:integer):integer;
+    begin
+        if n = 1 then begin Fbi := 1 end
+        else begin Fbi := Fbi(n - 1) * n end
+    end;
+
+begin
+    read(n);
+    writeln(Fbi(n))
+end.

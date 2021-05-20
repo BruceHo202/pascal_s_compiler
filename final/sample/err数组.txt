@@ -1,0 +1,6 @@
+program dyaares(input,output);
+    var a: array ['a'..'b'] of integer;
+        
+begin
+    a[1] := 2
+end.

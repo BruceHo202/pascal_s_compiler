@@ -1,0 +1,216 @@
+program dyaares(input,output);
+    const aa = 5; bb = 11; cc = 'a';
+    type symbol = integer; symbol2 = real;
+    var m: symbol;
+        r: record a:symbol2; b: array[aa..bb,1..aa] of record a:symbol2 end end;
+        ch, ch2: char;
+        int, int2: integer;
+        bol, bol2: Boolean;
+        rea, rea2: real;
+        j: integer;
+        
+        test4: array['a'..'b'] of integer;
+        test5: array['a'..'b', 1..2] of integer;
+        
+        n, i: integer;
+        arr: array[0..15000] of integer;
+        mid: integer;
+        ans: real;
+        
+        xx, yy ,modnum:integer;
+        
+    procedure outaval;
+        begin m := aa; write(m) end;
+    procedure newaval;
+        var m:integer;
+            test:real;
+        begin test := 6.6; m:= 5 and 5; write(m); outaval end;
+    procedure addaval;
+        begin m := m * 5 + bb; outaval end;
+    function test1( var h:integer; hh:char; hhh: Boolean):integer;
+        function test2:integer;
+            begin end;
+        begin h := h + 1 end;
+        
+    procedure test3(var h:integer; var hh:char);
+        begin h := 12345; hh := 'z' end;
+
+    function partition(l: integer; r: integer):integer;
+        var i, j, val, t: integer;
+    begin
+        i := l + 1;
+        j := r;
+        val := arr[l];
+        repeat
+            while ((arr[i] < val) and (i <= j)) do i := i + 1;
+            while ((arr[j] > val) and (i <= j)) do j := j - 1;
+            if not (i > j) then
+            begin
+                t := arr[i];
+                arr[i] := arr[j];
+                arr[j] := t;
+                i := i + 1;
+                j := j - 1
+            end;
+        until i > j;
+        t := arr[l];
+        arr[l] := arr[j];
+        arr[j] := t;
+        partition := j
+    end;
+    
+    
+    procedure quickasort(l: integer; r: integer);
+        var pos: integer;
+    begin
+        if l < r then
+        begin
+            pos := partition(l, r);
+            quickasort(l, pos - 1);
+            quickasort(pos + 1, r)
+        end
+    end;
+    
+    function quickpow(p,q:integer):integer;
+        var res:integer;
+    begin
+        res:=1;
+        while q<>0 do
+            begin
+                if q mod 2 = 1 then res:=res*p;
+                p:=p*p;
+                p:=p mod modnum;
+                res:=res mod modnum;
+                q:=q div 2
+            end;
+        quickpow:=res
+    end;
+    
+    function gcd(x, y:integer):integer;
+        var r:integer;
+    begin
+        r := x mod y;
+        while r <> 0 do
+        begin
+            x := y;
+            y := r;
+            r := x mod y
+        end;
+        gcd := y
+    end;
+
+    function Fbi(n:integer):integer;
+    begin
+        if n = 1 then begin Fbi := 1 end
+        else begin Fbi := Fbi(n - 1) * n end
+    end;
+    
+    procedure Sub(var n:integer);
+    begin
+        if n - 1 > 0 then
+        begin
+            n := n - 1;
+            Sub(n)
+        end
+    end;
+
+    begin
+        begin outaval end;
+        r.a := 3;
+        r.b[1,2].a := 1234;
+        write(r.b[1,2].a);
+        write(r.a);
+
+
+        ch := 'a';
+        ch2 := 'b';
+        int := 2;
+        rea := 2.5;
+        write(ch > ch2);
+        write(int > rea);
+        write(int > int);
+        writeln;
+        writeln;
+        writeln(m);
+        test1(m, ch, int > rea);
+        writeln(m);
+        test3(m, ch);
+        writeln(m);
+        writeln(ch);
+        
+        
+        for i := 1 to 10 do
+        begin
+            for j := 3 downto 2 do
+            begin
+                write(i)
+            end
+        end;
+        
+        writeln;
+        writeln(i);
+        writeln(j);
+        outaval; newaval; addaval; writeln;
+        newaval; outaval; addaval; writeln;
+        write;
+        
+        rea := 3;
+        
+        
+        case int of
+            1: write(12);
+            2: write(23);
+            3,4: write(34)
+        end;
+        
+        if 1 = 1 then write(111);
+        
+        
+        i := 10;
+        while i >= 0  do begin
+            write(111);
+            i := i - 1
+        end;
+        
+        i := 1;
+        int2 := 0;
+        repeat
+            i := i + 1;
+            writeln(i);
+            if i = 10 then int2 := 1
+        until int2 = 1;
+        test4['a'] := 22222222;
+        write(test4['a']);
+        i := -5;
+        j := +i;
+        write(j);
+        
+        writeln;
+        
+        read(n);
+        Sub(n);
+        writeln(n);
+
+        read(n);
+        writeln(Fbi(n));
+        
+        read(xx, yy, modnum);
+        writeln(quickpow(xx, yy));
+        
+        read(xx, yy);
+        writeln(gcd(xx, yy));
+        
+        read(n);
+        while n <> 0 do
+        begin
+        
+            for i := 1 to n do begin read(arr[i]) end;
+
+            quickasort(1, n);
+
+            for i := 1 to n do
+                if i <= n then writeln(arr[i]);
+            writeln;
+            read(n)
+        end
+    end.

@@ -1,0 +1,10 @@
+program dyaares(input,output);
+    var n : integer;
+begin
+    n := 2;
+    case n of
+        1: write(12);
+        '2': write(23);
+        3,4: write(34)
+    end
+end.

@@ -1,0 +1,8 @@
+program dyaares(input,output);
+    function test(a,b: integer) : integer;
+    begin
+        a := 3;
+    end;
+begin
+    test(1)
+end.

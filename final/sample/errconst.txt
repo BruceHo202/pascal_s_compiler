@@ -1,0 +1,6 @@
+program dyaares(input,output);
+    const a := 3;
+    var i : integer;
+begin
+    a := a + 1
+end.

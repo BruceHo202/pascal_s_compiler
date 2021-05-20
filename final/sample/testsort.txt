@@ -1,0 +1,58 @@
+program dyaares(input,output);
+
+    var arr:array[0..15000] of integer;
+        n:integer;
+        i:integer;
+
+
+    function partition(l: integer; r: integer):integer;
+        var i, j, val, t: integer;
+    begin
+        i := l + 1;
+        j := r;
+        val := arr[l];
+        repeat
+            while ((arr[i] < val) and (i <= j)) do i := i + 1;
+            while ((arr[j] > val) and (i <= j)) do j := j - 1;
+            if not (i > j) then
+            begin
+                t := arr[i];
+                arr[i] := arr[j];
+                arr[j] := t;
+                i := i + 1;
+                j := j - 1
+            end;
+        until i > j;
+        t := arr[l];
+        arr[l] := arr[j];
+        arr[j] := t;
+        partition := j
+    end;
+    
+    
+    procedure quickasort(l: integer; r: integer);
+        var pos: integer;
+    begin
+        if l < r then
+        begin
+            pos := partition(l, r);
+            quickasort(l, pos - 1);
+            quickasort(pos + 1, r)
+        end
+    end;
+
+begin
+    read(n);
+    while n <> 0 do
+    begin
+    
+        for i := 1 to n do begin read(arr[i]) end;
+
+        quickasort(1, n);
+
+        for i := 1 to n do
+            if i <= n then writeln(arr[i]);
+        writeln;
+        read(n)
+    end
+end.

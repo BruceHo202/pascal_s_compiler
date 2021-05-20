@@ -1,0 +1,8 @@
+program dyaares(input,output);
+    var i : integer;
+begin
+    i := 1;
+    repeat 
+        i := i + 1;
+    end;
+end.

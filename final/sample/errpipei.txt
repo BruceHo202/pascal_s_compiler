@@ -1,0 +1,5 @@
+program dyaares(input,output);
+    var i : integer;
+begin
+    writeln(2 + 3
+end.

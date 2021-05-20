@@ -1,0 +1,8 @@
+program dyaares(input,output);
+    var i : integer;
+begin
+    i := 1;
+    while i < 10 then do
+        i := i + 1;
+    writeln(i)
+end.
