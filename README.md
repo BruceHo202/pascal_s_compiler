@@ -1,3 +1,4 @@
+```
 Run lex, updateMarkTable, myCompiler, resolve in sequence.
 lex is lexical analysing.
 updateMarkTable generates mark table.
@@ -11,3 +12,4 @@ the code. Lib functions includes only write, writeln, read, readln.
 
 Directory sample is samples of pascal-s source code, which can successfully run
 through this compiler.
+```
